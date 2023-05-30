@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FilmesAPI.Controllers;
 
 [ApiController]
-[Route("[Coontroller]")]
+[Route("[controller]")]
 public class MovieController : ControllerBase
 {
     private static List<Movie> movies = new List<Movie>();
@@ -16,5 +16,6 @@ public class MovieController : ControllerBase
         Console.WriteLine(movie.Title);
         Console.WriteLine(movie.Duration);
         Console.WriteLine(movie.Genre);
+     
     }
 }
