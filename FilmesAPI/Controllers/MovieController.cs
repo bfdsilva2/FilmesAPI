@@ -21,6 +21,12 @@ public class MovieController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Insert a movie
+    /// </summary>
+    /// <param name="movieDto"></param>
+    /// <returns>IActionResult</returns>
+    /// <response code="201">If the insertion was successful</response>
     [HttpPost]
     public IActionResult AddMovie([FromBody] CreateMovieDto movieDto)
     {
@@ -30,12 +36,25 @@ public class MovieController : ControllerBase
         return CreatedAtAction(nameof(GetMovieById), new { id = movie.Id }, movie);
     }
 
+    /// <summary>
+    /// Get all movies
+    /// </summary>
+    /// <param name="skip">Records to skip</param>
+    /// <param name="take">Records to take</param>
+    /// <returns>IEnumerable(ReadMovieDto)</returns>
+    /// <response code="200">If successful</response>
     [HttpGet]
     public IEnumerable<ReadMovieDto> Movies([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
         return _mapper.Map<List<ReadMovieDto>>(_context.Movies.Skip(skip).Take(take));
     }
 
+    /// <summary>
+    /// Get movie by Id
+    /// </summary>
+    /// <param name="id">Movie Id</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">If successful</response>
     [HttpGet("{id}")]
     public IActionResult GetMovieById(int id)
     {
@@ -46,6 +65,13 @@ public class MovieController : ControllerBase
         return Ok(_mapper.Map<ReadMovieDto>(movie));
     }
 
+    /// <summary>
+    /// Update movie
+    /// </summary>
+    /// <param name="id">Movie Id</param>
+    /// <param name="movieDto">Movie</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="204">No content</response>
     [HttpPut("{id}")]
     public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieDto movieDto)
     {
