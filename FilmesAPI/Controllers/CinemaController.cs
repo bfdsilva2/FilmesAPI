@@ -4,6 +4,7 @@ using FilmesAPI.Data.DTOs;
 using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmesAPI.Controllers
 {
@@ -32,9 +33,12 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReadCinemaDto> GetCinemas()
+        public IEnumerable<ReadCinemaDto> GetCinemas([FromQuery] int? addressId = null)
         {
-            return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.ToList());
+            if (addressId == null)
+                return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.ToList());
+            else
+                return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.FromSqlRaw($"SELECT Id, Name, AddressId FROM cinemas WHERE AddressId = {addressId}").ToList());
         }
 
         [HttpGet("{id}")]

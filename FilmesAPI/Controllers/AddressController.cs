@@ -28,7 +28,7 @@ namespace FilmesAPI.Controllers
             Address address = _mapper.Map<Address>(addressDto);
             _context.Addresses.Add(address);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetAddressById), new { id = address.Id }, addressDto);
+            return CreatedAtAction(nameof(GetAddressById), new { Id = address.Id }, addressDto);
 
         }
 

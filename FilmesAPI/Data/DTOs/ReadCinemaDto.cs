@@ -9,5 +9,11 @@ namespace FilmesAPI.Data.DTOs
         public string Name { get; set; }
 
         public ReadAddressDto Address { get; set; }
+
+        //public int AddressId { get; set; }
+
+        public ICollection<ReadSectionDto> Sections { get; set; }
+
+        //public virtual ICollection<Section> Sections { get; set; }
     }
 }

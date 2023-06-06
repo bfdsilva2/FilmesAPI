@@ -27,20 +27,20 @@ namespace FilmesAPI.Controllers
             Section section = _mapper.Map<Section>(sectionDto);
             _context.Sections.Add(section);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetSectionById), new { Id = section.Id }, sectionDto);
+            return CreatedAtAction(nameof(GetSectionById), new { movieId = section.MovieId, cinemaId = section.CinemaId }, section);
 
         }
 
         [HttpGet]
-        public IEnumerable<ReadCinemaDto> GetSections()
+        public IEnumerable<ReadSectionDto> GetSections()
         {
             return _mapper.Map<List<ReadSectionDto>>(_context.Sections.ToList());
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetSectionById(int id)
+        [HttpGet("{movieId}/{cinemaId}")]
+        public IActionResult GetSectionById(int movieId, int cinemaId)
         {
-            var section = _context.Sections.FirstOrDefault(i => i.Id == id);
+            var section = _context.Sections.FirstOrDefault(i => i.MovieId == movieId && i.CinemaId == cinemaId);
             if (section == null)
                 return NotFound();
 
@@ -61,10 +61,10 @@ namespace FilmesAPI.Controllers
             return NoContent();
         }
         */
-        [HttpDelete("{id}")]
-        public IActionResult DeleteSection(int id)
+        [HttpDelete("{movieId}/{cinemaId}")]
+        public IActionResult DeleteSection(int movieId, int cinemaId)
         {
-            Cinema section = _context.Sections.FirstOrDefault(i => i.Id == id);
+            Section section = _context.Sections.FirstOrDefault(i => i.MovieId == movieId && i.CinemaId == cinemaId);
             if (section == null)
                 return NotFound();
 

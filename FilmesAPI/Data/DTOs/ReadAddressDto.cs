@@ -8,5 +8,7 @@ namespace FilmesAPI.Data.DTOs
         public string Street { get; set; }
         public int Number { get; set; }
 
+        public ICollection<ReadCinemaDto> Cinemas { get; set; }
+
     }
 }

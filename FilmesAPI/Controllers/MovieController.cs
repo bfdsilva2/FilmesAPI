@@ -44,9 +44,13 @@ public class MovieController : ControllerBase
     /// <returns>IEnumerable(ReadMovieDto)</returns>
     /// <response code="200">If successful</response>
     [HttpGet]
-    public IEnumerable<ReadMovieDto> Movies([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadMovieDto> Movies([FromQuery] int skip = 0, [FromQuery] int take = 50, [FromQuery] string? cinemaName = null)
     {
-        return _mapper.Map<List<ReadMovieDto>>(_context.Movies.Skip(skip).Take(take));
+        if (cinemaName == null)
+            return _mapper.Map<List<ReadMovieDto>>(_context.Movies.Skip(skip).Take(take).ToList());
+        else
+            return _mapper.Map<List<ReadMovieDto>>(_context.Movies.Skip(skip).Take(take).
+                Where(movie => movie.Sections.Any(section => section.Cinema.Name.Contains(cinemaName))).ToList());
     }
 
     /// <summary>
