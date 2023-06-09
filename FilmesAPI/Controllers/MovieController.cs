@@ -41,6 +41,7 @@ public class MovieController : ControllerBase
     /// </summary>
     /// <param name="skip">Records to skip</param>
     /// <param name="take">Records to take</param>
+    /// <param name="cinemaName">Cinema name to filter movies</param>
     /// <returns>IEnumerable(ReadMovieDto)</returns>
     /// <response code="200">If successful</response>
     [HttpGet]
